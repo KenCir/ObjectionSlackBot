@@ -7,7 +7,7 @@ const web = new WebClient(token);
 module.exports = robot => {
   const queue = {}
 
-  robot.hear(/oe!render start/i, msg => {
+  robot.hear(/oe!help/i, msg => {
     msg.send("このBotはチャットに書き込まれたものを逆転裁判パロディにするBotです\n`oe!render start`で開始\n`oe!render end`で終了、動画を生成します");
   });
 
