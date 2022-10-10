@@ -3,11 +3,20 @@ const { WebClient } = require('@slack/web-api');
 const fs = require("fs");
 const token = process.env.HUBOT_SLACK_TOKEN;
 const web = new WebClient(token);
-const queue = {}
 
 module.exports = robot => {
+  const queue = {}
+
   robot.hear(/oe!render start/i, msg => {
-    const channel = msg.message.rawMessage.channel;
+    msg.send("このBotはチャットに書き込まれたものを逆転裁判パロディにするBotです\n`oe!render start`で開始\n`oe!render end`で終了、動画を生成します");
+  });
+
+  robot.hear(/oe!render start/i, msg => {
+    if (queue[msg.message.rawMessage.channel]) {
+      msg.send("このチャンネルは既に描写対象です\n`oe!render end`で終了、動画を生成しますします");
+      return;
+    }
+
     queue[msg.message.rawMessage.channel] = []
 
     msg.send("描写を開始します...");
